@@ -1,0 +1,10 @@
+C:\Users\sub7z\source\repos\Corners_WinForms\Corners_WinForms\bin\Debug\Corners_WinForms.exe.config
+C:\Users\sub7z\source\repos\Corners_WinForms\Corners_WinForms\bin\Debug\Corners_WinForms.exe
+C:\Users\sub7z\source\repos\Corners_WinForms\Corners_WinForms\bin\Debug\Corners_WinForms.pdb
+C:\Users\sub7z\source\repos\Corners_WinForms\Corners_WinForms\obj\Debug\Corners_WinForms.csprojAssemblyReference.cache
+C:\Users\sub7z\source\repos\Corners_WinForms\Corners_WinForms\obj\Debug\Corners_WinForms.Form1.resources
+C:\Users\sub7z\source\repos\Corners_WinForms\Corners_WinForms\obj\Debug\Corners_WinForms.Properties.Resources.resources
+C:\Users\sub7z\source\repos\Corners_WinForms\Corners_WinForms\obj\Debug\Corners_WinForms.csproj.GenerateResource.cache
+C:\Users\sub7z\source\repos\Corners_WinForms\Corners_WinForms\obj\Debug\Corners_WinForms.csproj.CoreCompileInputs.cache
+C:\Users\sub7z\source\repos\Corners_WinForms\Corners_WinForms\obj\Debug\Corners_WinForms.exe
+C:\Users\sub7z\source\repos\Corners_WinForms\Corners_WinForms\obj\Debug\Corners_WinForms.pdb
