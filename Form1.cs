@@ -23,7 +23,6 @@ namespace Corners_WinForms
         
         int player;
         bool mayJump;
-        bool checkerJump;
         int[,] increment = {
             {0, -1, 1, 1 },
             {-1, 1, 1, -1 }
@@ -38,11 +37,11 @@ namespace Corners_WinForms
         static int[,] field = new int[fieldSize, fieldSize] {
             {1,1,1,1,2,2,2,2},
             {1,1,1,1,2,2,2,2},
-            {1,1,1,1,2,2,2,2},
-            {2,2,2,2,2,2,2,2},
-            {2,2,2,2,2,2,2,2},
-            {2,2,2,2,0,0,0,0},
-            {2,2,2,2,0,0,0,0},
+            {1,1,2,2,2,2,2,2},
+            {2,2,0,1,2,2,2,2},
+            {2,0,1,2,0,2,2,2},
+            {2,2,2,2,2,0,2,0},
+            {2,2,2,2,0,2,0,0},
             {2,2,2,2,0,0,0,0},
         };
         Button[,] buttonField = new Button[fieldSize, fieldSize];
@@ -112,9 +111,7 @@ namespace Corners_WinForms
         private void ButtonOnClick(object sender, EventArgs eventArgs)
         {
             DrawField();
-
-            checkerJump = false;
-
+            
             currentButton = (sender as Button);
 
             int curr_i = currentButton.Name[0] - '0';
@@ -142,17 +139,7 @@ namespace Corners_WinForms
                 field[prev_i, prev_j] = 2;
 
                 mayJump = false;
-
-                // field checks
-                label1.Text = "";
-                for (int ik = 0; ik < fieldSize; ik++)
-                {
-                    for (int jk = 0; jk < fieldSize; jk++)
-                    {
-                        label1.Text += field[ik, jk] + " ";
-                    }
-                    label1.Text += '\n';
-                }
+                
                 player = (player == 0) ? 1 : 0; 
             }
             previousButton = currentButton;
@@ -160,10 +147,8 @@ namespace Corners_WinForms
 
         private void CheckPossibleMoves(int curr_i, int curr_j)
         {
-            checkerJump = !checkerJump;
             int neighbor_i = curr_i;
             int neighbor_j = curr_j;
-            label1.Text = "";
             for (int i = 0; i < 4; i++)
             {
                 neighbor_i += increment[0, i];
@@ -173,30 +158,58 @@ namespace Corners_WinForms
                 {
                     if (field[neighbor_i, neighbor_j] == 2)
                         buttonField[neighbor_i, neighbor_j].BackColor = Color.LimeGreen;
-                    else if (field[neighbor_i, neighbor_j] != 2 && checkerJump)
+                    else if (field[neighbor_i, neighbor_j] != 2)
                     {
                         if (i == 0 || i == 2)
-                            CheckPossibleJumps(neighbor_i, neighbor_j + increment[1, i]);
+                            CheckPossibleJumps(neighbor_i, neighbor_j + increment[1, i], i);
                         else
-                            CheckPossibleJumps(neighbor_i + increment[0, i], neighbor_j);
+                            CheckPossibleJumps(neighbor_i + increment[0, i], neighbor_j, i);
                     }
                 }
                 catch { }
-            }/*
-            {0, -1, 1, 1 },
-            {-1, 1, 1, -1 }
-            */
+            }
         }
-
         
-
-        private void CheckPossibleJumps(int curr_i, int curr_j)
+        private void CheckPossibleJumps(int curr_i, int curr_j, int i)
         {
-            label1.Text += Convert.ToString(curr_i) + Convert.ToString(curr_j) + " ";
             if (field[curr_i, curr_j] == 2)
+            {
                 buttonField[curr_i, curr_j].BackColor = Color.LimeGreen;
+                CheckAnother(curr_i, curr_j, i);
+            }
         }
 
+        private void CheckAnother(int curr_i, int curr_j, int ix)
+        {
+            if (ix <= 2)
+                ix += 2;
+            else
+                ix -= 2;
+            
+            int neighbor_i = curr_i;
+            int neighbor_j = curr_j;
+            for (int i = 0; i < 4; i++)
+            {
+
+                neighbor_i += increment[0, i];
+                neighbor_j += increment[1, i];
+
+                if (i == ix)
+                    continue;
+
+                try
+                {
+                    if (field[neighbor_i, neighbor_j] != 2 )
+                    {
+                        if (i == 0 || i == 2)
+                            CheckPossibleJumps(neighbor_i, neighbor_j + increment[1, i], i);
+                        else
+                            CheckPossibleJumps(neighbor_i + increment[0, i], neighbor_j, i);
+                    }
+                }
+                catch { }
+            }
+        }
     }
 }
  
